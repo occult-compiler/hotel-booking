@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hotel Booking</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="form-container">
+        <h1>Hotel Booking Form</h1>
+        <form action="/book" method="POST">
+            <label>Full Name</label>
+            <input type="text" name="full_name" required>
+
+            <label>Email</label>
+            <input type="email" name="email" required>
+
+            <label>Phone</label>
+            <input type="tel" name="phone" required>
+
+            <label>Check-in Date</label>
+            <input type="date" name="check_in" required>
+
+            <label>Check-out Date</label>
+            <input type="date" name="check_out" required>
+
+            <label>Room Type</label>
+            <select name="room_type">
+                <option value="Single">Single</option>
+                <option value="Double">Double</option>
+                <option value="Suite">Suite</option>
+            </select>
+
+            <label>Number of Guests</label>
+            <input type="number" name="guests" min="1" required>
+
+            <label>Special Requests</label>
+            <textarea name="special_requests"></textarea>
+
+            <button type="submit">Book Now</button>
+        </form>
+    </div>
+</body>
+</html>
