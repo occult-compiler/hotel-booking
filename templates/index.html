@@ -8,37 +8,78 @@
 <body>
     <div class="form-container">
         <h1>Hotel Booking Form</h1>
-        <form action="/book" method="POST">
-            <label>Full Name</label>
-            <input type="text" name="full_name" required>
-
-            <label>Email</label>
-            <input type="email" name="email" required>
-
-            <label>Phone</label>
-            <input type="tel" name="phone" required>
-
-            <label>Check-in Date</label>
-            <input type="date" name="check_in" required>
-
-            <label>Check-out Date</label>
-            <input type="date" name="check_out" required>
-
-            <label>Room Type</label>
-            <select name="room_type">
-                <option value="Single">Single</option>
-                <option value="Double">Double</option>
-                <option value="Suite">Suite</option>
-            </select>
-
-            <label>Number of Guests</label>
-            <input type="number" name="guests" min="1" required>
-
-            <label>Special Requests</label>
-            <textarea name="special_requests"></textarea>
-
+        <form id="bookingForm">
+            <div class="form-grid">
+                <div class="field">
+                    <label>Full Name</label>
+                    <input type="text" name="full_name" required>
+                </div>
+                <div class="field">
+                    <label>Email</label>
+                    <input type="email" name="email" required>
+                </div>
+                <div class="field">
+                    <label>Phone</label>
+                    <input type="tel" name="phone" required>
+                </div>
+                <div class="field">
+                    <label>Check-in Date</label>
+                    <input type="date" name="check_in" required>
+                </div>
+                <div class="field">
+                    <label>Check-out Date</label>
+                    <input type="date" name="check_out" required>
+                </div>
+                <div class="field">
+                    <label>Room Type</label>
+                    <select name="room_type">
+                        <option value="Single">Single</option>
+                        <option value="Double">Double</option>
+                        <option value="Suite">Suite</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Number of Guests</label>
+                    <input type="number" name="guests" min="1" required>
+                </div>
+                <div class="field full-width">
+                    <label>Special Requests</label>
+                    <textarea name="special_requests"></textarea>
+                </div>
+            </div>
             <button type="submit">Book Now</button>
         </form>
     </div>
+
+    <!-- Success Popup -->
+    <div id="successPopup" class="popup hidden">
+        <div class="popup-content">
+            <h2>✅ Booking Successful!</h2>
+            <p id="popupName"></p>
+            <button onclick="closePopup()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById("bookingForm");
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+
+            const response = await fetch("/book", {
+                method: "POST",
+                body: formData
+            });
+            const data = await response.json();
+
+            document.getElementById("popupName").innerText = `Thank you, ${data.name}! Your booking is confirmed.`;
+            document.getElementById("successPopup").classList.remove("hidden");
+            form.reset();
+        });
+
+        function closePopup() {
+            document.getElementById("successPopup").classList.add("hidden");
+        }
+    </script>
 </body>
 </html>
